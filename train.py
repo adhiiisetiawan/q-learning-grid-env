@@ -29,8 +29,8 @@ def train(n_training_episodes, min_epsilon, max_epsilon, decay_rate, env, max_st
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Reinforcement Learning Script")
-    parser.add_argument("--env", choices=["FrozenLake-v1", "Taxi-v3"], default="FrozenLake-v1", help="Choose the environment")
-    parser.add_argument("--config", choices=["taxi.yml", "frozenlake.yml"], default="frozenlake.yml", help="Choose the configuration file")
+    parser.add_argument("--env", choices=["FrozenLake-v1", "Taxi-v3"], default="FrozenLake-v1", required=True, help="Choose the environment")
+    parser.add_argument("--config", choices=["config/taxi.yml", "config/frozenlake.yml"], default="frozenlake.yml", required=True, help="Choose the configuration file")
     args = parser.parse_args()
 
     # Load configuration from the selected YAML file
@@ -49,17 +49,14 @@ if __name__ == "__main__":
     eval_seed = config["eval_seed"]
 
     if args.env == "FrozenLake-v1":
-        # env_id = "FrozenLake-v1"
         env = gym.make("FrozenLake-v1", map_name="4x4", is_slippery=False, render_mode="rgb_array")
     elif args.env == "Taxi-v3":
-        # env_id = "Taxi-v3"
         env = gym.make("Taxi-v3", render_mode="rgb_array")
 
     state_space = env.observation_space.n
     action_space = env.action_space.n
 
     Qtable_frozenlake = initialize_q_table(state_space, action_space)
-
     Qtable_frozenlake = train(n_training_episodes, min_epsilon, max_epsilon, decay_rate, env, max_steps, Qtable_frozenlake)
 
     mean_reward, std_reward = evaluate_agent(env, max_steps, n_eval_episodes, Qtable_frozenlake, eval_seed)
