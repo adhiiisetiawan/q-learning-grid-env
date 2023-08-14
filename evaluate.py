@@ -28,10 +28,3 @@ def evaluate_agent(env, max_steps, n_eval_episodes, Q, seed):
     std_reward = np.std(episode_rewards)
 
     return mean_reward, std_reward
-
-if __name__ == "__main__":
-    # Your evaluation configuration and Q-table loading here
-    # ...
-
-    mean_reward, std_reward = evaluate_agent(env, max_steps, n_eval_episodes, Qtable_frozenlake, eval_seed)
-    print(f"Mean_reward={mean_reward:.2f} +/- {std_reward:.2f}")
