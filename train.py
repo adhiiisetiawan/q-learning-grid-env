@@ -1,4 +1,6 @@
 import numpy as np
+import argparse
+import yaml
 from tqdm import tqdm
 from evaluate import evaluate_agent
 from record import record_video
@@ -26,22 +28,32 @@ def train(n_training_episodes, min_epsilon, max_epsilon, decay_rate, env, max_st
     return Qtable
 
 if __name__ == "__main__":
-    n_training_episodes = 10000     # total training episode
-    learning_rate = 0.7             # learning rate
+    parser = argparse.ArgumentParser(description="Reinforcement Learning Script")
+    parser.add_argument("--env", choices=["FrozenLake-v1", "Taxi-v3"], default="FrozenLake-v1", help="Choose the environment")
+    parser.add_argument("--config", choices=["taxi.yml", "frozenlake.yml"], default="frozenlake.yml", help="Choose the configuration file")
+    args = parser.parse_args()
 
-    n_eval_episodes = 100           # total test episode
+    # Load configuration from the selected YAML file
+    with open(args.config, "r") as config_file:
+        config = yaml.safe_load(config_file)
 
-    env_id = "FrozenLake-v1"        # environment name
-    max_steps = 99                  # max step per episode
-    gamma = 0.95                    # discount rate
-    eval_seed = []                  # eval seed environment
+    n_training_episodes = config["n_training_episodes"]
+    learning_rate = config["learning_rate"]
+    n_eval_episodes = config["n_eval_episodes"]
+    max_steps = config["max_steps"]
+    gamma = config["gamma"]
+    max_epsilon = config["max_epsilon"]
+    min_epsilon = config["min_epsilon"]
+    decay_rate = config["decay_rate"]
+    video_out_dir = config["video_out_dir"]
+    eval_seed = config["eval_seed"]
 
-    max_epsilon = 1.0               # exploration probability at start
-    min_epsilon = 0.05              # minimum exploration probability
-    decay_rate = 0.0005             # exponential decay rate for exploration probability
-    video_out_dir = "./replay.mp4"
-
-    env = gym.make("FrozenLake-v1", map_name="4x4", is_slippery=False, render_mode="rgb_array")
+    if args.env == "FrozenLake-v1":
+        # env_id = "FrozenLake-v1"
+        env = gym.make("FrozenLake-v1", map_name="4x4", is_slippery=False, render_mode="rgb_array")
+    elif args.env == "Taxi-v3":
+        # env_id = "Taxi-v3"
+        env = gym.make("Taxi-v3", render_mode="rgb_array")
 
     state_space = env.observation_space.n
     action_space = env.action_space.n
