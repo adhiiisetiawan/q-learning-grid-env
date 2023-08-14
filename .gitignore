@@ -20,7 +20,7 @@ ipython_config.py
 __pycache__/
 *.py[cod]
 *$py.class
-
+.env-ql/
 # C extensions
 *.so
 

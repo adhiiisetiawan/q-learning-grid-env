@@ -1,15 +1,14 @@
 import numpy as np
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from utils import greedy_policy
-import gym
 
 def evaluate_agent(env, max_steps, n_eval_episodes, Q, seed):
     episode_rewards = []
     for episode in tqdm(range(n_eval_episodes)):
         if seed:
-            state = env.reset(seed=seed[episode])
+            state, info = env.reset(seed=seed[episode])
         else:
-            state = env.reset()
+            state, info = env.reset()
 
         truncated = False
         terminated = False
@@ -17,7 +16,7 @@ def evaluate_agent(env, max_steps, n_eval_episodes, Q, seed):
 
         for step in range(max_steps):
             action = greedy_policy(Q, state)
-            new_state, reward, terminated, truncated, _ = env.step(action)
+            new_state, reward, terminated, truncated, info = env.step(action)
             total_rewards_ep += reward
 
             if terminated or truncated:

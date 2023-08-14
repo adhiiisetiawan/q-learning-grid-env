@@ -3,18 +3,19 @@ from tqdm import tqdm
 from evaluate import evaluate_agent
 from record import record_video
 from utils import initialize_q_table, epsilon_greedy_policy
-import gym
+import gymnasium as gym
 
 def train(n_training_episodes, min_epsilon, max_epsilon, decay_rate, env, max_steps, Qtable):
     for episode in tqdm(range(n_training_episodes)):
-        epsilon = min_epsilon + (max_epsilon - min_epsilon) * np.exp(-decay_rate * episode)
-        state = env.reset()
+        epsilon = min_epsilon + (max_epsilon - min_epsilon) * np.exp(-decay_rate*episode)
+        state, info = env.reset()
+        stop = 0
         terminated = False
         truncated = False
 
         for step in range(max_steps):
-            action = epsilon_greedy_policy(Qtable, state, epsilon)
-            new_state, reward, terminated, truncated, _ = env.step(action)
+            action = epsilon_greedy_policy(Qtable, env, state, epsilon)
+            new_state, reward, terminated, truncated, info = env.step(action)
             Qtable[state][action] = Qtable[state][action] + learning_rate * (reward + gamma * np.max(Qtable[new_state]) - Qtable[state][action])
 
             if terminated or truncated:

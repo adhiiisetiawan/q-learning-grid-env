@@ -1,13 +1,12 @@
 import numpy as np
 import imageio
 from utils import greedy_policy
-import gym
 
 def record_video(env, Qtable, out_directory, fps=1):
     images = []
     terminated = False
     truncated = False
-    state = env.reset(seed=np.random.randint(0, 500))
+    state, info = env.reset(seed=np.random.randint(0, 500))
     img = env.render()
     images.append(img)
     
