@@ -1,5 +1,7 @@
 import numpy as np
-from tqdm.notebook import tqdm
+from tqdm import tqdm
+from evaluate import evaluate_agent
+from record import record_video
 from utils import initialize_q_table, epsilon_greedy_policy
 import gym
 
@@ -36,6 +38,7 @@ if __name__ == "__main__":
     max_epsilon = 1.0               # exploration probability at start
     min_epsilon = 0.05              # minimum exploration probability
     decay_rate = 0.0005             # exponential decay rate for exploration probability
+    video_out_dir = "./replay.mp4"
 
     env = gym.make("FrozenLake-v1", map_name="4x4", is_slippery=False, render_mode="rgb_array")
 
@@ -45,3 +48,8 @@ if __name__ == "__main__":
     Qtable_frozenlake = initialize_q_table(state_space, action_space)
 
     Qtable_frozenlake = train(n_training_episodes, min_epsilon, max_epsilon, decay_rate, env, max_steps, Qtable_frozenlake)
+
+    mean_reward, std_reward = evaluate_agent(env, max_steps, n_eval_episodes, Qtable_frozenlake, eval_seed)
+    print(f"Mean_reward={mean_reward:.2f} +/- {std_reward:.2f}")
+
+    record_video(env, Qtable_frozenlake, out_directory=video_out_dir, fps=1)
