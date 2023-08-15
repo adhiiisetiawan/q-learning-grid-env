@@ -63,4 +63,4 @@ Taxi environment results<br>
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](https://github.com/adhiiisetiawan/q-learning-grid-env/blob/main/LICENSE).
