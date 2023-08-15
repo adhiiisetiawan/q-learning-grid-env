@@ -55,8 +55,11 @@ Training loop that allows the agent to interact with the environment and improve
    ```
 
 ## Results
+FrozenLake environment results<br>
+![FrozenLake Recorded GIF](https://github.com/adhiiisetiawan/q-learning-grid-env/blob/main/results/replay_frozenlake.gif)
 
-...
+Taxi environment results<br>
+![Taxi Recorded GIF](https://github.com/adhiiisetiawan/q-learning-grid-env/blob/main/results/replay_taxi.gif)
 
 ## License
 
