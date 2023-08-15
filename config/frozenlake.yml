@@ -16,4 +16,4 @@ min_epsilon: 0.05
 decay_rate: 0.0005
 
 # Save video directory
-video_out_dir: "./replay_frozenlake.mp4"
+video_out_dir: "./results/replay_frozenlake.mp4"
