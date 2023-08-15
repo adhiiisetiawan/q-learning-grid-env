@@ -9,7 +9,6 @@ This project focuses on implementing and demonstrating the Q-learning algorithm 
 - [Implementation](#implementation)
 - [Usage](#usage)
 - [Results](#results)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Introduction to Q-Learning
@@ -26,17 +25,18 @@ This repository includes implementations for two classic grid world environments
 
 ## Implementation
 
-...
+The Q-learning algorithm has been implemented in Python using the OpenAI Gym library to interact with the grid world environments. The main components of the implementation include:
+
+Initialization of Q-values for all state-action pairs.
+Exploration and exploitation strategy (e.g., epsilon-greedy policy).
+Q-value update based on the Bellman equation.
+Training loop that allows the agent to interact with the environment and improve its Q-values.
 
 ## Usage
 
 ...
 
 ## Results
-
-...
-
-## Contributing
 
 ...
 
