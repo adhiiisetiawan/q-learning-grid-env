@@ -34,7 +34,25 @@ Training loop that allows the agent to interact with the environment and improve
 
 ## Usage
 
-...
+1. Clone this repository and install dependencies in your python environment
+   ```bash
+   # clone repository
+   git clone https://github.com/adhiiisetiawan/q-learning-grid-env.git
+   cd q-learning-grid-env
+
+   # install dependencies
+   pip3 install -r requirements.txt
+   ```
+2. Start training <br>
+   For frozenlake environment
+   ```bash
+   python3 train.py --env FrozenLake-v1 --config config/frozenlake.yml
+   ```
+
+   For taxi environment
+   ```bash
+   python3 train.py --env Taxi-v3 --config config/taxi.yml
+   ```
 
 ## Results
 
